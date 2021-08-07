@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="jq.js"></script>
+
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body{
+      background: rgba(0,0,0,0.2);
+    }
+
+    .playAudio {
+      width: 500px;
+      height: 350px;
+      background: #fff;
+      display: none;
+      border-radius: 3px;
+    }
+
+    .nav {
+      padding: 20px 0 0 30px;
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1;
+
+    }
+
+    .playAudio .content {
+      padding-left: 60px;
+    }
+
+    .name,
+    .playtime,
+    .playid {
+      font-size: 14px;
+      color: #666;
+      padding-top: 20px;
+    }
+
+    .audio {
+      font-size: 14px;
+      color: #666;
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    audio {
+      height: 20px;
+
+    }
+
+    .playAudio span {
+      margin-right: 8px;
+    }
+
+    .playAudio .playnum {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 50px;
+      padding-top: 20px;
+    }
+
+    .playAudio .playnum label {
+      text-align: center;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+
+
+    }
+
+    .playAudio .playnum label input {
+      margin-right: 5px;
+    }
+
+    .playAudio .close {
+      display: flex;
+      justify-content: flex-end;
+      padding:30px 20px 0 0;
+    }
+
+    .playAudio .close div {
+      width: 95px;
+      height: 40px;
+      background: #336EFD;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .openPlayAudio,.openAudioTotext{
+      width: 95px;
+      height: 40px;
+      background: #336EFD;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* 录音转文字 */
+    .audioTotext{
+      width: 750px;
+      background: #fff;
+      padding-bottom: 30px;
+      display: none;
+      border-radius: 3px;
+    }
+    .audioTotext .info{
+      width:85%;
+      overflow: hidden;
+      margin:auto;
+      max-height: 200px;
+      height: 100px;
+      margin-top:30px;
+      padding:10px 10px 0px 10px;
+      border:1px solid #999;
+    }
+    .audioTotext .info div{
+      float: left;
+      font-size: 14px;
+      color:#666;
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      padding-bottom: 10px;
+
+    }
+    .audioTotext span {
+      margin-right: 8px;
+      display: block;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+    }
+    .audioTotext  .playnum{
+      display: flex;
+      align-items: center;
+    }
+    .audioTotext .playnum {
+      font-size: 13px;
+      color: #666;
+      display: flex;
+      justify-content: space-between;
+      padding-right: 50px;
+    }
+
+    .audioTotext .playnum label {
+      text-align: center;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      margin-left: 8px;
+
+
+    }
+
+    .audioTotext .playnum label input {
+      margin-right: 5px;
+    }
+    .audioTotext .user{
+      width:85%;
+      margin:auto;
+      margin-top:30px;
+      padding:10px 10px 0px 10px;
+      border:1px solid #999;
+
+    }
+    .audioTotext .time{
+      text-align: center;
+      font-size: 14px;
+      color:#666;
+    }
+    .audioTotext .dialogue div img{
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: block;
+      margin-right: 15px;
+      
+    }
+    .audioTotext .dialogue div {
+      padding:10px 0;
+      overflow: hidden;
+    }
+    .audioTotext .dialogue div span:last-child{
+      color:#336EFD;
+    }
+    .audioTotext .dialogue div:nth-child(odd){
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      color:#666;
+    
+    }
+    .audioTotext .dialogue div:nth-child(even){
+      display: flex;
+      align-items: center;
+      /* justify-content: flex-end; */
+      font-size: 14px;
+      color:#666;
+      flex-flow: row-reverse wrap;
+      
+    }
+    .audioTotext .close div {
+      width: 95px;
+      height: 40px;
+      background: #336EFD;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 400;
+      color: #FFFFFF;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    .audioTotext .close {
+      display: flex;
+      justify-content: flex-end;
+      padding:30px 20px 0 0;
+    }
+    .audioTotext b{
+      width:15px;
+      height: 15px;
+      background: #ccc;
+      display: block;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin:0 3px;
+    }
+    .audioTotext .emotion{
+      position: relative;
+    }
+    .audioTotext .tools{
+      position: absolute;
+      top:20px;
+      width:200px;
+      height: 20px;
+      font-size: 14px;
+      color:#333;
+      background: #ccc;
+      text-align: center;
+      display: none;
+    }
+  </style>
+
+
+</head>
+
+<body>
+  <div class="openPlayAudio">播放录音</div>
+  <div class="openAudioTotext">录音转文字</div>
+  <div class="playAudio">
+    <div class="nav">
+      播放录音
+    </div>
+    <div class="content">
+      <div class="playid">
+        <span>
+          通话:
+        </span>
+        123445
+      </div>
+      <div class="playtime">
+        <span>
+          通话时间:
+        </span>
+        2020-1-1 21:00:00 - 2020-1-1 21:00:00
+      </div>
+      <div class="name">
+        <span>
+          客服姓名:
+        </span>
+        xxxx
+      </div>
+      <div class="audio">
+        <span>
+          通话录音:
+        </span>
+        <audio controls rcontrolsList="nodownload" preload="auto" src="./music.mp3">
+          你的浏览器不支持audio标签
+        </audio>
+      </div>
+
+      <div class="playnum">
+        <div>
+          播放倍数:
+        </div>
+        <label><input type="radio" name="playnum" value="0.5">0.5倍数</label>
+        <label><input type="radio" name="playnum" value="1" checked="checked">1.0倍数</label>
+        <label><input type="radio" name="playnum" value="1.25">1.25倍数</label>
+        <label><input type="radio" name="playnum" value="1.5">1.5倍数</label>
+        <label><input type="radio" name="playnum" value="2">2倍数</label>
+      </div>
+
+      <div class="close">
+        <div>
+          关闭
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+  <!-- 录音转文字 -->
+  <div class="audioTotext">
+    <div class="nav">
+     录音转文字
+    </div>
+    <div class="info">
+      <div >
+        <span>
+          通话:
+        </span>
+        123445
+      </div>
+      <div >
+        <span>
+          客服姓名:
+        </span>
+        123445
+      </div>
+      <div >
+        <span>
+          客户手机号:
+        </span>
+        1334567897
+      </div>
+      <div >
+        <span>
+          通话时长:
+        </span>
+        3:30o
+      </div>
+      <div >
+        <span class="emotion">
+          情绪值:<b>?</b>
+          <ul class="tools">1-10，值越高情绪越强烈</ul>
+        </span>
+        123445
+      </div>
+      <div>
+        <span>
+          通话录音:
+        </span>
+        <audio controls  rcontrolsList="nodownload" preload="auto" src="./music.mp3">
+          你的浏览器不支持audio标签
+        </audio>
+      </div>
+      <div class="playnum">
+        <p>
+          选择倍数:
+        </p>
+        <label><input type="radio" name="playnums" value="0.5">0.5倍数</label>
+        <label><input type="radio" name="playnums" value="1" checked="checked">1.0倍数</label>
+        <label><input type="radio" name="playnums" value="1.25">1.25倍数</label>
+        <label><input type="radio" name="playnums" value="1.5">1.5倍数</label>
+        <label><input type="radio" name="playnums" value="2">2倍数</label>
+      </div>
+    </div>
+    <div class="user">
+      <div class="time">11:00</div>
+      <div class="dialogue">
+        <div>
+          <img src="./head.jpeg" alt="">
+          <span>
+            lalalalalalalalalalalalalalalala
+          </span>
+          <span>
+            复制
+          </span>
+         
+        </div>
+        <div>
+          <img src="./head.jpeg" alt="">
+          <span>
+            lalalalalalalalalalalalalalalala皇i回顾胡椒粉i不好那不就发红包
+          </span>
+          <span>
+            复制
+          </span>
+        </div>
+        <div>
+          <img src="./head.jpeg" alt="">
+          <span>
+            lalalalalalalalalalalalalalalala
+          </span>
+          <span>
+            复制
+          </span>
+        </div>
+        <div>
+          <img src="./head.jpeg" alt="">
+          <span>
+            lalalalalalalalalalalalalalalala
+          </span>
+          <span>
+            复制
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="close">
+      <div>
+        关闭
+      </div>
+    </div>
+  </div>
+  <script>
+    //倍数
+    $('.playAudio input').change(function () {
+      $('.playAudio audio')[0].playbackRate = Number($(this).val());
+    })
+    // 点击按钮现实
+    $('.openPlayAudio').click(function(){
+      $('.playAudio').show()
+    })
+    // 关闭
+    $('.playAudio .close div').click(function(){
+      $('.playAudio').hide()
+      $('.playAudio audio')[0].pause()
+    })
+    // 修改播放倍数
+    $('.audioTotext input').change(function () {
+      $('.audioTotext audio')[0].playbackRate = Number($(this).val());
+    })
+   
+    $('.openAudioTotext').click(function(){
+      $('.audioTotext').show()
+    })
+     // 关闭弹窗
+    $('.audioTotext .close div').click(function(){
+      $('.audioTotext').hide()
+      $('.audioTotext audio')[0].pause()
+    })
+    // 情绪值移入移出事件
+    $('.audioTotext b').mouseenter(function(){
+      // debugger
+      $('.audioTotext .tools').show()
+
+    })
+    $('.audioTotext b').mouseleave(function(){
+      $('.audioTotext .tools').hide()
+    })
+  </script>
+
+</body>
+
+</html>
