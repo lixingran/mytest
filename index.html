@@ -466,6 +466,23 @@
     $('.audioTotext b').mouseleave(function(){
       $('.audioTotext .tools').hide()
     })
+    $('.openAudioTotext').click(function(){
+      $('.audioTotext').show()
+    })
+     // 关闭弹窗
+    $('.audioTotext .close div').click(function(){
+      $('.audioTotext').hide()
+      $('.audioTotext audio')[0].pause()
+    })
+    // 情绪值移入移出事件
+    $('.audioTotext b').mouseenter(function(){
+      // debugger
+      $('.audioTotext .tools').show()
+
+    })
+    $('.audioTotext b').mouseleave(function(){
+      $('.audioTotext .tools').hide()
+    })
   </script>
 
 </body>
