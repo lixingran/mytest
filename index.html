@@ -264,6 +264,68 @@
       text-align: center;
       display: none;
     }
+    /* ---------------- */
+    .audioTotext .close {
+      display: flex;
+      justify-content: flex-end;
+      padding:30px 20px 0 0;
+    }
+    .audioTotext b{
+      width:15px;
+      height: 15px;
+      background: #ccc;
+      display: block;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin:0 3px;
+    }
+    .audioTotext .emotion{
+      position: relative;
+    }
+    .audioTotext .tools{
+      position: absolute;
+      top:20px;
+      width:200px;
+      height: 20px;
+      font-size: 14px;
+      color:#333;
+      background: #ccc;
+      text-align: center;
+      display: none;
+    }
+     /* -------dev--------- */
+     .audioTotext .close {
+      display: flex;
+      justify-content: flex-end;
+      padding:30px 20px 0 0;
+    }
+    .audioTotext b{
+      width:15px;
+      height: 15px;
+      background: #ccc;
+      display: block;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin:0 3px;
+    }
+    .audioTotext .emotion{
+      position: relative;
+    }
+    .audioTotext .tools{
+      position: absolute;
+      top:20px;
+      width:200px;
+      height: 20px;
+      font-size: 14px;
+      color:#333;
+      background: #ccc;
+      text-align: center;
+      display: none;
+    }
   </style>
 
 
@@ -463,6 +525,27 @@
       $('.audioTotext .tools').show()
 
     })
+    $('.audioTotext b').mouseleave(function(){
+      $('.audioTotext .tools').hide()
+    })
+    $('.openAudioTotext').click(function(){
+      $('.audioTotext').show()
+    })
+     // 关闭弹窗
+    $('.audioTotext .close div').click(function(){
+      $('.audioTotext').hide()
+      $('.audioTotext audio')[0].pause()
+    })
+    // 情绪值移入移出事件
+    $('.audioTotext b').mouseenter(function(){
+      // debugger
+      $('.audioTotext .tools').show()
+
+    })
+    $('.audioTotext b').mouseleave(function(){
+      $('.audioTotext .tools').hide()
+    })
+    // -----------------
     $('.audioTotext b').mouseleave(function(){
       $('.audioTotext .tools').hide()
     })
